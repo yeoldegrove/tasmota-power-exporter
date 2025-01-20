@@ -17,7 +17,7 @@ The GitHub actions pipeline automatically builds Docker images for ARM and x86 d
 Docker-Compose:
 ```
   tasmota:
-    image: ghcr.io/astr0n8t/tasmota-power-exporter:latest
+    image: ghcr.io/yeoldegrove/tasmota-power-exporter:latest
     container_name: tasmota-power
     restart: always
     ports:
@@ -57,7 +57,7 @@ we can specify our targets in target section.
 Perform the following:
 
 ```
-git clone https://github.com/astr0n8t/tasmota-power-exporter.git
+git clone https://github.com/yeoldegrove/tasmota-power-exporter.git
 cd tasmota-power-exporter
 pip install -r requirements.txt
 pip install -r requirements-dev.txt # unit tests
@@ -68,4 +68,5 @@ All of the exporter code is found in [metrics.py](./metrics.py).
 ## Contributors
 
 - [Nathan Higley](https://github.com/astr0n8t)
+- [Eike Waldt](https://github.com/yeoldegrove)
 - [brokenpip3](https://github.com/brokenpip3)
