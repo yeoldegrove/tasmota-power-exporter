@@ -11,6 +11,7 @@ from fastapi import FastAPI, Query, HTTPException
 from fastapi.responses import PlainTextResponse, Response
 import uvicorn
 from os import getenv
+import locale
 
 
 class TasmotaCollector(object):
@@ -18,13 +19,21 @@ class TasmotaCollector(object):
         self.ip = ip
         self.user = user
         self.password = password
+        # Set locale to handle various number formats
+        locale.setlocale(locale.LC_NUMERIC, 'C')
 
     def collect(self):
         response = asyncio.run(self.fetch())
 
         for key in response:
             metric_name = "tasmota_" + key.lower().replace(" ", "_")
-            metric = response[key].split()[0]
+            value_str = response[key].split()[0]
+            try:
+                metric = locale.atof(value_str)
+            except ValueError:
+                # Skip metrics that can't be converted to float
+                continue
+                
             unit = None
             if len(response[key].split()) > 1:
                 unit = response[key].split()[1]
